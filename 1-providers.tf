@@ -39,11 +39,6 @@ provider "helm" {
   }
 }
 
-
-
-
-
-# Crea el clúster local con el driver Docker y activa algunos addons.
 resource "minikube_cluster" "cluster" {
   vm      = false
   driver  = "docker"
