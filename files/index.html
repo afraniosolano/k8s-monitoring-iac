@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Terraform en Acción!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 40px 60px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .message {
+            color: #007bff;
+            font-size: 3em;
+            font-weight: bold;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.2em;
+        }
+
+        .cta {
+            margin-top: 30px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta:hover {
+            background-color: #218838;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Hola desde Terraform!</h1>
+        <p>Esta es una página de ejemplo para demostrar la infraestructura como código.</p>
+        <div class="message">
+            Hola MundosE!
+        </div>
+        <p>Si estás viendo esto, significa que Terraform ha funcionado correctamente. 🎉</p>
+    </div>
+</body>
+</html>
