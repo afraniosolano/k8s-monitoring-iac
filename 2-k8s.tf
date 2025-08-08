@@ -13,7 +13,7 @@ resource "kubernetes_namespace" "mundose" {
 resource "kubernetes_config_map" "nginx_index" {
   metadata {
     name      = "nginx-index"
-    namespace = kubernetes_namespace.mundose.metadata.name
+    namespace = namespace = kubernetes_namespace.mundose.metadata[0].name
   }
   data = {
     "index.html" = file("${path.module}/files/index.html")
@@ -26,7 +26,7 @@ resource "kubernetes_deployment" "mundose" {
 
   metadata {
     name      = "terraform-mundose"
-    namespace = kubernetes_namespace.mundose.metadata.name
+    namespace = namespace = kubernetes_namespace.mundose.metadata[0].name
     labels = {
       test = "MundoseApp"
     }
@@ -78,7 +78,7 @@ resource "kubernetes_deployment" "mundose" {
 resource "kubernetes_service" "nginx_service" {
   metadata {
     name      = "nginx-service"
-    namespace = kubernetes_namespace.mundose.metadata.name
+    namespace = namespace = kubernetes_namespace.mundose.metadata[0].name
   }
   spec {
     selector = {
