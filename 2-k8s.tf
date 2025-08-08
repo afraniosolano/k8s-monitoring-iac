@@ -1,13 +1,26 @@
-# k8s.tf
+# 2-k8s.tf
 
+# Namespace
 resource "kubernetes_namespace" "mundose" {
-    depends_on = [minikube_cluster.cluster]
+  depends_on = [minikube_cluster.cluster]
 
   metadata {
     name = "mundose"
   }
 }
 
+# ConfigMap para archivo index.html
+resource "kubernetes_config_map" "nginx_index" {
+  metadata {
+    name      = "nginx-index"
+    namespace = kubernetes_namespace.mundose.metadata.name
+  }
+  data = {
+    "index.html" = file("${path.module}/files/index.html")
+  }
+}
+
+# Deployment de Nginx
 resource "kubernetes_deployment" "mundose" {
   depends_on = [kubernetes_namespace.mundose, minikube_cluster.cluster]
 
@@ -36,7 +49,6 @@ resource "kubernetes_deployment" "mundose" {
       }
 
       spec {
-        
         container {
           name  = "mundose"
           image = "nginx:1.21.6"
@@ -50,7 +62,7 @@ resource "kubernetes_deployment" "mundose" {
         volume {
           name = "html"
           config_map {
-            name = kubernetes_config_map.nginx_index.metadata[0].name
+            name = kubernetes_config_map.nginx_index.metadata.name
             items {
               key  = "index.html"
               path = "index.html"
@@ -62,17 +74,7 @@ resource "kubernetes_deployment" "mundose" {
   }
 }
 
-resource "kubernetes_config_map" "nginx_index" {
-  metadata {
-    name      = "nginx-index"
-    namespace = kubernetes_namespace.mundose.metadata.name
-  }
-  data = {
-    "index.html" = file("${path.module}/files/index.html")
-  }
-}
-
-
+# Servicio NodePort para acceder al Nginx
 resource "kubernetes_service" "nginx_service" {
   metadata {
     name      = "nginx-service"
@@ -89,5 +91,6 @@ resource "kubernetes_service" "nginx_service" {
     }
     type = "NodePort"
   }
+
   depends_on = [kubernetes_deployment.mundose]
 }
