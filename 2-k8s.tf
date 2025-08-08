@@ -62,7 +62,7 @@ resource "kubernetes_deployment" "mundose" {
         volume {
           name = "html"
           config_map {
-            name = kubernetes_config_map.nginx_index.metadata.name
+            name = kubernetes_config_map.nginx_index.metadata[0].name
             items {
               key  = "index.html"
               path = "index.html"
