@@ -4,7 +4,7 @@ resource "kubernetes_namespace" "mundose" {
     depends_on = [minikube_cluster.cluster]
 
   metadata {
-    name = "k8s-ns-by-tf"
+    name = "mundose"
   }
 }
 
@@ -13,7 +13,7 @@ resource "kubernetes_deployment" "mundose" {
 
   metadata {
     name      = "terraform-mundose"
-    namespace = kubernetes_namespace.mundose.metadata[0].name
+    namespace = kubernetes_namespace.mundose.metadata.name
     labels = {
       test = "MundoseApp"
     }
@@ -65,7 +65,7 @@ resource "kubernetes_deployment" "mundose" {
 resource "kubernetes_config_map" "nginx_index" {
   metadata {
     name      = "nginx-index"
-    namespace = kubernetes_namespace.mundose.metadata[0].name
+    namespace = kubernetes_namespace.mundose.metadata.name
   }
   data = {
     "index.html" = file("${path.module}/files/index.html")
@@ -76,7 +76,7 @@ resource "kubernetes_config_map" "nginx_index" {
 resource "kubernetes_service" "nginx_service" {
   metadata {
     name      = "nginx-service"
-    namespace = kubernetes_namespace.mundose.metadata[0].name
+    namespace = kubernetes_namespace.mundose.metadata.name
   }
   spec {
     selector = {
