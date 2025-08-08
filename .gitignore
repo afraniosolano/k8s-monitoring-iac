@@ -1,0 +1,20 @@
+# Archivos y carpetas generadas por Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Archivos sensibles o de configuración local
+*.tfvars
+*.tfvars.json
+crash.log
+
+# Archivos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de backup o temporales
+*.log
+*.bak
+*.tmp
+
